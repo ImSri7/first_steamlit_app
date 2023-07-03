@@ -22,16 +22,8 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe (fruits_to_show)
 
 # New section to display  fruityvice APi responses
+streamlit.header("Fruityvice Fruit Advice!")
+
 import requests
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-streamlit.text(fruityvice_response)
-
-
-
-import snowflake.connector
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-my_data_row = my_cur.fetchone()
-streamlit.text("The fruit load list contains:")
-streamlit.text(my_data_row)
+streamlit.text(fruityvice_response.json)
